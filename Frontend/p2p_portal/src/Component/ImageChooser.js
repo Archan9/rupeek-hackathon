@@ -6,6 +6,7 @@ export default function ImageChooser() {
 
   const handleImageSelect = (image) => {
     setSelectedImage(image);
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
   };
 
   return (

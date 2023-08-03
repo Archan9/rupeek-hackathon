@@ -15,6 +15,7 @@ export default function SignUp() {
       })
       .then((res)=>{
           console.log(res);
+          localStorage.setItem('token', JSON.stringify(res.data['access_token']))
           alert("Registration successful");
       })
       .catch((err)=>{
