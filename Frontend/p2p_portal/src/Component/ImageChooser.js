@@ -1,42 +1,45 @@
 // ImageChooser.js
 import React, { useState } from 'react';
-import axios from "axios";
+// import axios from "axios";
 
 export default function ImageChooser() {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedOption, setSelectedOption] = useState('');
 
-  const handleImageSelect = (image) => {
-    setSelectedImage(image);
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleOption = () => {
+    // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
   };
 
   return (
     <div className="bg-gray-100 h-screen flex justify-center items-center">
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
-     
-      <h2 className="text-2xl font-semibold mb-4">Track your Loan:</h2>
-     <div className='flex gap-4'> 
-      <div className="image-container items-center justify-center">
-        <img
-          src="https://i.postimg.cc/nrw5jCY5/png-clipart-flat-design-graphy-friends-love-child-thumbnail-removebg-preview.png"
-          alt="Lend"
-          className={selectedImage === 'image1' ? 'selected' : ''}
-          onClick={() => handleImageSelect('image1')}
-        />
-        <p className="text-2 font mb-4">Friends & Family</p>
+
+      <h2 className="text-2xl font-semibold mb-4">Choose your option: </h2>
+        <div>
+          <select value={selectedOption} onChange={handleOptionChange}>
+            <option className="block text-gray-700 text-sm font-bold mb-2" value="">Take Loan</option>
+            <option value="option1">Take Loan from Friends & Family</option>
+            <option value="option2">Take Loan from Strangers</option>
+          </select>
+          {/* {selectedOption && <p>Selected Option: {selectedOption}</p>} */}
+        </div>
+
+        <p className="block text-gray-700 text-sm font-bold mb-2 pt-6 pl-2"> Give Loan </p>
+        <p className="block text-gray-700 text-sm font-bold mb-2 pt-6 pl-2"> Track Bank Loan </p>
+        
+        <div className="pt-4 pl-2">
+          <button
+                type="button"
+                onClick={handleOption}
+                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none"
+              >
+                Done
+          </button>
+        </div>
       </div>
-      <div className="image-container  items-center justify-center">
-        <img
-          src="https://i.postimg.cc/13S11NXR/360-F-136529221-MNEOQKI2bcp-LUe230-CTuh-JHYRN4-Ba-FGm.jpg"
-          alt="trackBank"
-          className={selectedImage === 'image2' ? 'selected' : ''}
-          onClick={() => handleImageSelect('image2')}
-        />
-        <p className="text-2 font mb-4">Track Bank Loan</p>
-      </div>
-      </div>
-      {selectedImage && <p>You have selected {selectedImage === 'image1' ? 'Image 1' : 'Image 2'}</p>}
-    </div>
     </div>
   );
 };
