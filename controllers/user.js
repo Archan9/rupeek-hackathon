@@ -1,6 +1,8 @@
 const User=require('../models/User');
 const Group=require('../models/Group');
+const Loan=require('../models/Loan');
 const resp=require('../utils/resp');
+const C=require('../utils/constants');
 const twilio = require('twilio')(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
 const jwt=require('jsonwebtoken');
 
@@ -44,7 +46,7 @@ exports.verify=async(req,res)=>{
                 phone,
             })
         }
-        return resp(res,200,jwt.sign({id: user._id},process.env.JWT_SECRET,{expiresIn: process.env.EXPIRES}));
+        return resp(res,200,jwt.sign({id: user._id},process.env.JWT_SECRET));
     } catch (error) {
         console.log(error);
         return resp(res,500,"Internal server error");
@@ -113,6 +115,104 @@ exports.getGroupById=async(req,res)=>{
         })
         .populate({path:'userIds'});
         return resp(res,200,group);
+    } catch (error) {
+        console.log(error);
+        return resp(res,500,"Internal server error");
+    }
+}
+
+exports.createLoan=async(req,res)=>{
+    try {
+        let values=req.body;
+        values.loanStatus=C.loanStatus.INITIATED;
+        values.loanType=C.loanType.OPEN;
+        values.borrower=req.user._id;
+        const loan=await Loan.create(values);
+        resp(res,201,loan);
+    } catch (error) {
+        console.log(error);
+        return resp(res,500,"Internal server error");
+    }
+}
+
+exports.acceptLoan=async(req,res)=>{
+    try {
+        const loan=await Loan.findOneAndUpdate(
+            {
+                _id: req.params.id,
+            },
+            {
+                loanStatus: C.loanStatus.PENDING,
+                lenderId: req.user._id,
+            },
+            {
+                new: true,
+            },
+        );
+        return resp(res,200,loan);
+    } catch (error) {
+        console.log(error);
+        return resp(res,500,"Internal server error");
+    }
+}
+
+exports.getAllBorrowedLoans=async(req,res)=>{
+    try {
+        const loans=await Loan.find({
+            borrower: req.user._id,
+        });
+        return resp(res,200,loans);
+    } catch (error) {
+        console.log(error);
+        return resp(res,500,"Internal server error");
+    }
+}
+
+exports.getAllInitiatedoans=async(req,res)=>{
+    try {
+        const loans=await Loan.find({
+            borrower: req.user._id,
+            loanStatus: C.loanStatus.INITIATED,
+        });
+        return resp(res,200,loans);
+    } catch (error) {
+        console.log(error);
+        return resp(res,500,"Internal server error");
+    }
+}
+
+exports.getAllPendingLoans=async(req,res)=>{
+    try {
+        const loans=await Loan.find({
+            borrower: req.user._id,
+            loanStatus: C.loanStatus.PENDING,
+        });
+        return resp(res,200,loans);
+    } catch (error) {
+        console.log(error);
+        return resp(res,500,"Internal server error");
+    }
+}
+
+exports.getAllCompletedLoans=async(req,res)=>{
+    try {
+        const loans=await Loan.find({
+            borrower: req.user._id,
+            loanStatus: C.loanStatus.COMPLETED,
+        });
+        return resp(res,200,loans);
+    } catch (error) {
+        console.log(error);
+        return resp(res,500,"Internal server error");
+    }
+}
+
+exports.getAllLoansAsLender=async(req,res)=>{
+    try {
+        const loans=await Loan.find({
+            lenderId: req.user._id,
+        });
+        return resp(res,200,loans);
     } catch (error) {
         console.log(error);
         return resp(res,500,"Internal server error");
