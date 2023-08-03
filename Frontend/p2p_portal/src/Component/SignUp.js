@@ -5,9 +5,10 @@ import {Link} from 'react-router-dom'
 export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
 
   const handleSignup = () => {
-    console.log(email, password);
+    console.log(name, email, password);
   };
 
   return (
@@ -15,6 +16,22 @@ export default function SignUp() {
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-semibold mb-4">SignUp</h2>
         <form>
+        <div className="mb-4">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Name
+            </label>
+            <input
+              type="name"
+              value={name}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name"
+            />
+          </div>
+
           <div className="mb-4">
             <label
               htmlFor="email"
