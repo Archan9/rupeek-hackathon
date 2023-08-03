@@ -1,14 +1,26 @@
 // Signup.js
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
 
   const handleSignup = () => {
-    console.log(name, email, password);
+    axios.post(process.env.REACT_APP_API_URI + '/SignUp', {name, email, password},{
+      headers:{
+          "Content-Type":"application/json"
+      }
+      })
+      .then((res)=>{
+          console.log(res);
+          alert("Registration successful");
+      })
+      .catch((err)=>{
+          alert("Something went wrong");
+          console.log(err);
+      });
   };
 
   return (
@@ -16,7 +28,7 @@ export default function SignUp() {
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-semibold mb-4">SignUp</h2>
         <form>
-        <div className="mb-4">
+          <div className="mb-4">
             <label
               htmlFor="name"
               className="block text-gray-700 text-sm font-bold mb-2"
@@ -64,12 +76,21 @@ export default function SignUp() {
             />
           </div>
           <div className="flex items-center justify-between">
-            <button type="button" onClick={handleSignup} className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none">
-                SignUp
+            <button
+              type="button"
+              onClick={handleSignup}
+              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none"
+            >
+              SignUp
             </button>
           </div>
         </form>
-        <p className="mt-4 text-gray-600 text-sm">Already have an account? <Link className="text-blue-500 hover:text-blue-600" to="/">Login</Link></p>
+        <p className="mt-4 text-gray-600 text-sm">
+          Already have an account?{" "}
+          <Link className="text-blue-500 hover:text-blue-600" to="/">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );

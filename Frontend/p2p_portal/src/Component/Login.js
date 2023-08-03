@@ -1,6 +1,7 @@
 // Login.js
 import React, { useState } from "react";
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -8,6 +9,17 @@ export default function Login() {
 
   const handleLogin = () => {
     console.log(email, password);
+    try{
+        axios.post(process.env.REACT_APP_API_URI, {
+        email: email,
+        password: password
+      })
+      .then((response) => {
+        console.log(response);
+      });
+    }catch(err){
+      console.log(err)
+    }
   };
 
   return (
