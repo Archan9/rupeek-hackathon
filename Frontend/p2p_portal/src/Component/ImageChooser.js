@@ -11,7 +11,9 @@ export default function ImageChooser() {
   return (
     <div className="bg-gray-100 h-screen flex justify-center items-center">
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
+     
       <h2 className="text-2xl font-semibold mb-4">Choose between two images:</h2>
+     <div className='flex gap-4'> 
       <div className="image-container inline-block">
         <img
           src="https://i.postimg.cc/HjWKHHzh/Borrowing.jpg"
@@ -27,6 +29,7 @@ export default function ImageChooser() {
           className={selectedImage === 'image2' ? 'selected' : ''}
           onClick={() => handleImageSelect('image2')}
         />
+      </div>
       </div>
       {selectedImage && <p>You have selected {selectedImage === 'image1' ? 'Image 1' : 'Image 2'}</p>}
     </div>
