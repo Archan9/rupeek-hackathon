@@ -5,14 +5,13 @@ import Card from "./Card";
 
 export default function Dashboard() {
   const [cards,setCards] = useState([]);
-
-  const BASE_URL='http://localhost:8000';
-
+  const jwt = JSON.parse(localStorage.getItem("jwt"));
+  
   const fetchCards=async(url)=>{
     try {
-      const res=await axios.get(BASE_URL+url,{
+      const res=await axios.get('https://rupeek-backend.onrender.com/api/user/loan/open',{
         headers:{
-          Authorization: `JWT ${localStorage.getItem('jwt')}`,
+          Authorization: `JWT ${jwt}`,
         }
       })
       console.log(res.data);

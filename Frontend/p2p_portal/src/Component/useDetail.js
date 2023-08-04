@@ -1,53 +1,55 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const UserDetails = () => {
-  const [number, setnumber] = useState("");
   const [creditScore, setcreditScore] = useState("");
   const [AadhaarNumber, setAadhaarNumber] = useState("");
   const [kyc, setkyc] = useState("");
   const [gold, setgold] = useState("");
+  const navigate = useNavigate();
 
   const handleAdd = (e) => {
     e.preventDefault();
     const localdata = JSON.parse(localStorage.getItem("userdetail"));
-    const {data} = JSON.parse(localStorage.getItem("jwt"));
-    console.log(localdata, data);
+    const jwt = JSON.parse(localStorage.getItem("jwt"));
     try {
       axios
-        .post(
+        .put(
           "https://rupeek-backend.onrender.com/api/user",
           {
             username: localdata.name,
             phone: localdata.number,
-            email: "prem12@gmal.com",
+            aadhaarNumber: AadhaarNumber,
+            kyc: kyc,
+            gold: gold,
           },
           {
             headers: {
-              Authorization: `JWT ${data}`,
-              "Content-Type": "application/json",
+              authorization: `JWT ${jwt}`,
             },
           }
         )
         .then((response) => {
           console.log(response);
         });
-      // axios
-      //   .post(
-      //     "https://rupeek-backend.onrender.com/api/user/loan/open",
-      //     {
-      //       amount: gold * 5000,
-      //       reason: creditScore,
-      //     },
-      //     {
-      //       headers: {
-      //         authorization: data,
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   )
-      //   .then((response) => {
-      //     console.log(response);
-      //   });
+      axios
+        .post(
+          "https://rupeek-backend.onrender.com/api/user/loan/open",
+          {
+            amount: gold * 5000,
+            reason: creditScore,
+          },
+          {
+            headers: {
+              authorization: `JWT ${jwt}`,
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+          if (jwt) navigate("/profile");
+          else navigate("/");
+        });
     } catch (error) {
       console.log(error);
     }
@@ -60,35 +62,19 @@ const UserDetails = () => {
           User Details
         </h2>
         <form>
-          <div className="mb-4">
-            <label
-              htmlFor="Bank name"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Mob Number
-            </label>
-            <input
-              type="text"
-              value={number}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              onChange={(e) => setnumber(e.target.value)}
-              placeholder="Mobile"
-            />
-          </div>
-
           <div className="mb-6">
             <label
               htmlFor="Acccount"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              creditScore Number
+              Credit Score
             </label>
             <input
               type="text"
               value={creditScore}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               onChange={(e) => setcreditScore(e.target.value)}
-              placeholder="creditScore Number"
+              placeholder="Enter Credit Score"
             />
           </div>
           <div className="mb-6">
@@ -103,7 +89,7 @@ const UserDetails = () => {
               value={AadhaarNumber}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               onChange={(e) => setAadhaarNumber(e.target.value)}
-              placeholder="Aadhaar Number"
+              placeholder="Enter Aadhaar Number"
             />
           </div>
           <div className="mb-6">
@@ -118,7 +104,7 @@ const UserDetails = () => {
               value={gold}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
               onChange={(e) => setgold(e.target.value)}
-              placeholder="Gold Weight"
+              placeholder="Enter Gold Weight (in Grams)"
             />
           </div>
           <div className="mb-6">
@@ -134,8 +120,8 @@ const UserDetails = () => {
               onSelect={(e) => setkyc(e.target.value)}
               id="educationType"
             >
-              <option value="yes">YES</option>
-              <option value="no">NO</option>
+              <option value='true'>YES</option>
+              <option value='false'>NO</option>
             </select>
           </div>
 
