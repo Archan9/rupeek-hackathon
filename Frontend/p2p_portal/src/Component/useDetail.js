@@ -47,7 +47,7 @@ const UserDetails = () => {
         )
         .then((response) => {
           console.log(response);
-          if (jwt) navigate("/profile");
+          if (jwt) navigate("/dashboard");
           else navigate("/");
         });
     } catch (error) {
