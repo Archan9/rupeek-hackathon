@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 const TrackBankLoan = () => {
     const [name, setname] = useState("");
     const [Bankname, setbankname] = useState("");
@@ -8,7 +8,9 @@ const TrackBankLoan = () => {
     const [date, setdate] = useState("");
     const [emi, setemi] = useState("");
     const [loan,setloan]=useState("")
+    const navigate = useNavigate()
     const handleAdd=()=>{
+      Navigate("/dashboard")
 
     }
   return (

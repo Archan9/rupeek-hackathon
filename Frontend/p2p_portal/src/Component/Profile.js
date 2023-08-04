@@ -4,12 +4,12 @@ import Card from "./Card";
 export default function Profile() {
 
   const cards = [
-    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp"  ,title:"Example Card" ,description:"This is an example card with an image and text." },
-    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Example Card" ,description:"This is an example card with an image and text." },
-    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Example Card" ,description:"This is an example card with an image and text." },
-    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Example Card" ,description:"This is an example card with an image and text." },
-    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Example Card" ,description:"This is an example card with an image and text." },
-    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Example Card" ,description:"This is an example card with an image and text." }
+    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp"  ,title:"Amar" ,description:"credit_score: Credit score of the customer (e.g., 750)" },
+    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Amal" ,description:"credit_score: Credit score of the customer (e.g., 750)" },
+    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Akash" ,description:"credit_score: Credit score of the customer (e.g., 750)" },
+    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Amit" ,description:"credit_score: Credit score of the customer (e.g., 750)" },
+    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Sasi" ,description:"credit_score: Credit score of the customer (e.g., 750)"},
+    { id:1, imageUrl:"https://i.postimg.cc/15nMZRVX/vector-users-icon.webp" ,title:"Balaji" ,description:"credit_score: Credit score of the customer (e.g., 750)"}
   ];
 const fetchCards =()=>{
   

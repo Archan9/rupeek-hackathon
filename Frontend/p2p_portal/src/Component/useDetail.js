@@ -20,7 +20,6 @@ const UserDetails = () => {
             username: localdata.name,
             phone: localdata.number,
             aadhaarNumber: AadhaarNumber,
-            kyc: kyc,
             gold: gold,
           },
           {
