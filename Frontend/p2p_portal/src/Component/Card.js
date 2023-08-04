@@ -1,10 +1,11 @@
 import React from "react";
 
-const handleAccept = () => {
-  console.log(props.id);
-}
+export default function Card(props) {
 
-const Card = (props) => {
+  const handleAccept = () => {
+    console.log(props.id);
+  }
+  
   return (
     <div className="bg-white rounded-lg shadow-md p-4 card w-64">
       <img
@@ -22,5 +23,3 @@ const Card = (props) => {
     </div>
   );
 };
-
-export default Card;

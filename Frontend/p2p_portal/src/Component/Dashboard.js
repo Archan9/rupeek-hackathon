@@ -17,7 +17,7 @@ export default function Dashboard() {
       <Navbar />
       <div className="grid grid-cols-4 gap-4 p-5">
       {cards.map((card, index) => (
-        <Card key={card.id} title={card.title} description={card.description} imageUrl={card.imageUrl} />
+        <Card id={card.id} title={card.title} description={card.description} imageUrl={card.imageUrl} />
       ))}
     </div>
     </>
