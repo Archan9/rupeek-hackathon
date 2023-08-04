@@ -24,7 +24,7 @@ const UserDetails = () => {
     }
   };
   return (
-    <div className="bg-gray-100 h-screen flex justify-center items-center">
+    <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-8 flex justify-center items-center">
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-semibold mb-4 text-center">
           User Details
