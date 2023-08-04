@@ -36,7 +36,7 @@ export default function Login() {
         .then((response) => {
           const jwt = JSON.stringify(response.data);
           localStorage.setItem("jwt", jwt);
-          if (jwt) navigate("/UserDetails");
+          if (jwt) navigate("/choose");
           else navigate("/");
         });
     } catch (error) {

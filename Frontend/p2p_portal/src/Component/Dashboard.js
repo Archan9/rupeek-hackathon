@@ -28,23 +28,7 @@ export default function Dashboard() {
   return (
     <>
       <Navbar  title = "Dashboard"/>
-      <div className="btns">
-        <button className="btn" autoFocus={true} 
-        onClick={()=>{
-          fetchCards('/api/user/loan/open');
-        }}
-        >Borrowed</button>
-        <button className="btn"
-        onClick={()=>{
-          fetchCards('/api/user/loan/open/pending');
-        }}
-        >Pending</button>
-        <button className="btn"
-        onClick={()=>{
-          fetchCards('/api/user/loan/open/lender');
-        }}
-        >Lent</button>
-      </div>
+      
       <div className="grid grid-cols-4 gap-4 p-5">
       {cards.length&&cards.map((card, index) => (
         <Card showBtn={true} id={card.id} title={card.borrower.username || 'Random Guy'} description={card.amount} imageUrl="https://i.postimg.cc/15nMZRVX/vector-users-icon.webp"  />
