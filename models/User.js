@@ -12,8 +12,17 @@ const userSchema=new mongoose.Schema({
         type: String,
     },
     creditScore:{
-        type: Number,
+        type: String,
     },
+    aadhaarNumber: {
+        type: String,
+    },
+    kyc:{
+        type: Boolean,
+    },
+    gold:{
+        type: String,
+    }
 },
 {timestamps: true});
 
