@@ -160,7 +160,8 @@ exports.getAllBorrowedLoans=async(req,res)=>{
     try {
         const loans=await Loan.find({
             borrower: req.user._id,
-        });
+        })
+        .populate('borrower');
         return resp(res,200,loans);
     } catch (error) {
         console.log(error);
@@ -173,7 +174,8 @@ exports.getAllInitiatedoans=async(req,res)=>{
         const loans=await Loan.find({
             borrower: req.user._id,
             loanStatus: C.loanStatus.INITIATED,
-        });
+        })
+        .populate('borrower');
         return resp(res,200,loans);
     } catch (error) {
         console.log(error);
@@ -186,7 +188,9 @@ exports.getAllPendingLoans=async(req,res)=>{
         const loans=await Loan.find({
             borrower: req.user._id,
             loanStatus: C.loanStatus.PENDING,
-        });
+        })
+        .populate('borrower')
+        .populate('lenderId');
         return resp(res,200,loans);
     } catch (error) {
         console.log(error);
@@ -199,7 +203,9 @@ exports.getAllCompletedLoans=async(req,res)=>{
         const loans=await Loan.find({
             borrower: req.user._id,
             loanStatus: C.loanStatus.COMPLETED,
-        });
+        })
+        .populate('borrower')
+        .populate('lenderId');
         return resp(res,200,loans);
     } catch (error) {
         console.log(error);
@@ -211,7 +217,9 @@ exports.getAllLoansAsLender=async(req,res)=>{
     try {
         const loans=await Loan.find({
             lenderId: req.user._id,
-        });
+        })
+        .populate('borrower')
+        .populate('lenderId');
         return resp(res,200,loans);
     } catch (error) {
         console.log(error);
