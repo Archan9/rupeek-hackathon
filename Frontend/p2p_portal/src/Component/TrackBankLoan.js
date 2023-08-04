@@ -9,8 +9,9 @@ const TrackBankLoan = () => {
     const [emi, setemi] = useState("");
     const [loan,setloan]=useState("")
     const navigate = useNavigate()
+    
     const handleAdd=()=>{
-      Navigate("/dashboard")
+      navigate("/dashboard")
 
     }
   return (
