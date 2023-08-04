@@ -1,5 +1,9 @@
 import React from "react";
 
+const handleAccept = () => {
+  console.log(props.id);
+}
+
 const Card = (props) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-4 card w-64">
@@ -13,8 +17,7 @@ const Card = (props) => {
         <p>{props.description}</p>
       </div>
       <div className="d-flex justify-content-between">
-        <button className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Accept</button>
-        <button className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded ml-4">Reject</button>
+        <button onClick={handleAccept} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Accept</button>
       </div>
     </div>
   );
