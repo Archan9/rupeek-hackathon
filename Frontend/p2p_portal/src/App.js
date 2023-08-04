@@ -7,6 +7,7 @@ import ImageChooser from './Component/ImageChooser';
 import Dashboard from './Component/Dashboard';
 import TrackBankLoan from './Component/TrackBankLoan';
 import UserDetails from './Component/useDetail';
+import './App.css';
 
 const App = () => {
   return (
