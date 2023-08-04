@@ -1,24 +1,46 @@
 // Login.js
 import React, { useState } from "react";
-import {Link} from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [otp, setOTP] = useState("");
+  const navigate = useNavigate();
+  const handleOTP = () => {
+    let userdetails = {
+      name,
+      number,
+    };
 
-  const handleLogin = () => {
-    console.log(email, password);
-    try{
-        axios.post(process.env.REACT_APP_API_URI, {
-        email: email,
-        password: password
-      })
-      .then((response) => {
-        console.log(response);
-      });
-    }catch(err){
-      console.log(err)
+    try {
+      axios
+        .post("https://rupeek-backend.onrender.com/api/user/sendotp", {phone: number})
+        .then((response) => {
+          localStorage.setItem("userdetail", JSON.stringify(userdetails));
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleProceed = () => {
+    const localdata = JSON.parse(localStorage.getItem("userdetail"));
+    try {
+      axios
+        .post("https://rupeek-backend.onrender.com/api/user/verify", {
+          phone: localdata.number,
+          code: otp,
+        })
+        .then((response) => {
+          const jwt = JSON.stringify(response.data);
+          localStorage.setItem("jwt", jwt);
+          if (jwt) navigate("/UserDetails");
+          else navigate("/");
+        });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -29,42 +51,68 @@ export default function Login() {
         <form>
           <div className="mb-4">
             <label
-              htmlFor="email"
+              htmlFor="name"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Email
+              Name
             </label>
             <input
-              type="email"
-              value={email}
+              type="text"
+              value={name}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Enter Name"
             />
           </div>
 
           <div className="mb-6">
             <label
-              htmlFor="password"
+              htmlFor="number"
               className="block text-gray-700 text-sm font-bold mb-2"
             >
-              Password
+              Phone Number
             </label>
             <input
-              type="password"
-              value={password}
+              type="number"
+              value={number}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
+              onChange={(e) => setNumber(e.target.value)}
+              placeholder="Enter Number Here"
             />
           </div>
           <div className="flex items-center justify-between">
-            <button type="button" onClick={handleLogin} className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none">
-                Login
+            <button
+              type="button"
+              onClick={handleOTP}
+              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none"
+            >
+              GetOtp
+            </button>
+          </div>
+
+          <div className="mb-6 mt-6">
+            <label
+              htmlFor="otp"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            ></label>
+            <input
+              type="otp"
+              value={otp}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+              onChange={(e) => setOTP(e.target.value)}
+              placeholder="Enter OTP Here"
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={handleProceed}
+              className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none"
+            >
+              Proceed
             </button>
           </div>
         </form>
-        <p className="mt-4 text-gray-600 text-sm">Don't have an account? <Link className="text-blue-500 hover:text-blue-600" to="/SignUp">Sign up</Link></p>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Card(props) {
-
+  console.log(props)
   const handleAccept = () => {
     console.log(props.id);
   }
@@ -17,9 +17,9 @@ export default function Card(props) {
         <h2 className="text-xl font-bold mb-2">{props.title}</h2>
         <p>{props.description}</p>
       </div>
-      <div className="d-flex justify-content-between">
+      {props.showBtn && <div className="d-flex justify-content-between">
         <button onClick={handleAccept} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">Accept</button>
-      </div>
+      </div>}
     </div>
   );
 };
