@@ -1,17 +1,24 @@
 // ImageChooser.js
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
 // import axios from "axios";
 
 export default function ImageChooser() {
   const [selectedOption, setSelectedOption] = useState(null);
-
+const navigate = useNavigate()
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
   const handleOption = () => {
     // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
-    console.log(selectedOption);
+    if(selectedOption === "Track"){
+       navigate("/TrackBankLoan")
+    } else if(selectedOption === "Take") {
+         navigate("/UserDetails")
+    } else {
+      navigate("/profile")
+    }
   };
 
   return (
@@ -64,4 +71,3 @@ export default function ImageChooser() {
     </div>
   );
 }
-
