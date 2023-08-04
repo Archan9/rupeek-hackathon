@@ -1,9 +1,9 @@
 // ImageChooser.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import axios from "axios";
 
 export default function ImageChooser() {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -11,36 +11,57 @@ export default function ImageChooser() {
 
   const handleOption = () => {
     // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');
+    console.log(selectedOption);
   };
 
   return (
     <div className="bg-gray-100 h-screen flex justify-center items-center">
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
-
-      <h2 className="text-2xl font-semibold mb-4">Choose your option: </h2>
+        <h2 className="text-2xl font-semibold mb-4">Choose your option: </h2>
         <div>
-          <select value={selectedOption} onChange={handleOptionChange}>
-            <option className="block text-gray-700 text-sm font-bold mb-2" value="">Take Loan</option>
-            <option value="option1">Take Loan from Friends & Family</option>
-            <option value="option2">Take Loan from Strangers</option>
-          </select>
-          {/* {selectedOption && <p>Selected Option: {selectedOption}</p>} */}
+          <label className="flex items-center space-x-2">
+            <input
+              type="radio"
+              value="Take"
+              className="form-radio text-indigo-600"
+              checked={selectedOption === "Take"}
+              onChange={handleOptionChange}
+            />
+            <span class="text-gray-800">Take Loan</span>
+          </label>
+          <br />
+          <label className="flex items-center space-x-2">
+            <input
+              type="radio"
+              value="Give"
+              checked={selectedOption === "Give"}
+              onChange={handleOptionChange}
+            />
+            <span class="text-gray-800">Give Loan</span>
+          </label>
+          <br />
+          <label className="flex items-center space-x-2">
+            <input
+              type="radio"
+              value="Track"
+              checked={selectedOption === "Track"}
+              onChange={handleOptionChange}
+            />
+            <span class="text-gray-800">Track Bank Loan</span>
+          </label>
+          <br />
         </div>
-
-        <p className="block text-gray-700 text-sm font-bold mb-2 pt-6 pl-2"> Give Loan </p>
-        <p className="block text-gray-700 text-sm font-bold mb-2 pt-6 pl-2"> Track Bank Loan </p>
-        
         <div className="pt-4 pl-2">
           <button
-                type="button"
-                onClick={handleOption}
-                className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none"
-              >
-                Done
+            type="button"
+            onClick={handleOption}
+            className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none"
+          >
+            Done
           </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
