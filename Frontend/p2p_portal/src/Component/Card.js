@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Card(props) {
+  const navigate = useNavigate();
   console.log(props)
   const handleAccept = () => {
-    console.log(props.id);
+    navigate("/dashboard");
   }
   
   return (
