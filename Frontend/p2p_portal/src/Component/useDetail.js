@@ -1,28 +1,58 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 const UserDetails = () => {
-  const [name, setname] = useState("");
   const [number, setnumber] = useState("");
   const [creditScore, setcreditScore] = useState("");
   const [AadhaarNumber, setAadhaarNumber] = useState("");
   const [kyc, setkyc] = useState("");
   const [gold, setgold] = useState("");
+
   const handleAdd = (e) => {
     e.preventDefault();
+    const localdata = JSON.parse(localStorage.getItem("userdetail"));
+    const {data} = JSON.parse(localStorage.getItem("jwt"));
+    console.log(localdata, data);
     try {
-      axios.post("api", {
-        name,
-        number,
-        creditScore,
-        AadhaarNumber,
-        kyc,
-        gold,
-      });
+      axios
+        .post(
+          "https://rupeek-backend.onrender.com/api/user",
+          {
+            username: localdata.name,
+            phone: localdata.number,
+            email: "prem12@gmal.com",
+          },
+          {
+            headers: {
+              Authorization: `JWT ${data}`,
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        });
+      // axios
+      //   .post(
+      //     "https://rupeek-backend.onrender.com/api/user/loan/open",
+      //     {
+      //       amount: gold * 5000,
+      //       reason: creditScore,
+      //     },
+      //     {
+      //       headers: {
+      //         authorization: data,
+      //         "Content-Type": "application/json",
+      //       },
+      //     }
+      //   )
+      //   .then((response) => {
+      //     console.log(response);
+      //   });
     } catch (error) {
-      console.log(error, "err");
+      console.log(error);
     }
   };
+
   return (
     <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-8 flex justify-center items-center">
       <div className="max-w-md w-full p-6 bg-white rounded-md shadow-md">
@@ -30,21 +60,6 @@ const UserDetails = () => {
           User Details
         </h2>
         <form>
-          <div className="mb-4">
-            <label
-              htmlFor="name"
-              className="block text-gray-700 text-sm font-bold mb-2"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              value={name}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-              onChange={(e) => setname(e.target.value)}
-              placeholder="Name"
-            />
-          </div>
           <div className="mb-4">
             <label
               htmlFor="Bank name"
