@@ -46,7 +46,11 @@ exports.verify=async(req,res)=>{
                 phone,
             })
         }
-        return resp(res,200,jwt.sign({id: user._id},process.env.JWT_SECRET));
+        return resp(res,200,{
+            username: user.username,
+            phone: user.phone,
+            token: jwt.sign({id: user._id},process.env.JWT_SECRET),
+        });
     } catch (error) {
         console.log(error);
         return resp(res,500,"Internal server error");
